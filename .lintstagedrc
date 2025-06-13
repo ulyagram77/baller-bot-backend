@@ -6,7 +6,7 @@
   "*.{json,md}": [
     "prettier --write --ignore-unknown"
   ],
-  "*": [
+  "*.{ts,d.ts}": [
     "npm run typecheck"
   ]
 }
