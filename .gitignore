@@ -3,6 +3,7 @@
 /node_modules
 /build
 yarn.lock
+package-lock.json
 
 # Logs
 logs
@@ -55,3 +56,7 @@ pids
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+#db
+data/*
+!data/.gitkeep
