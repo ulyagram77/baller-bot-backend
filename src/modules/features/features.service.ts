@@ -1,4 +1,4 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/config/database/prisma.service';
 import { CreateFeatureDto } from './dto/create-feature.dto';
 import { UpdateFeatureDto } from './dto/update-feature.dto';
@@ -11,9 +11,7 @@ export class FeaturesService {
     try {
       return await this.prisma.feature.create({ data: createFeatureDto });
     } catch {
-      throw new InternalServerErrorException(
-        'Could not add feature to the database',
-      );
+      throw new Error('Failed to connect to the database');
     }
   }
 
@@ -21,9 +19,7 @@ export class FeaturesService {
     try {
       return await this.prisma.feature.findMany();
     } catch {
-      throw new InternalServerErrorException(
-        'Could not fetch features from the database',
-      );
+      throw new Error('Failed to connect to the database');
     }
   }
 
@@ -34,9 +30,7 @@ export class FeaturesService {
         data: updateFeatureDto,
       });
     } catch {
-      throw new InternalServerErrorException(
-        'Could not update feature in the database',
-      );
+      throw new Error('Failed to connect to the database');
     }
   }
 
@@ -46,9 +40,7 @@ export class FeaturesService {
         where: { id },
       });
     } catch {
-      throw new InternalServerErrorException(
-        'Could not remove feature from the database',
-      );
+      throw new Error('Failed to connect to the database');
     }
   }
 }
