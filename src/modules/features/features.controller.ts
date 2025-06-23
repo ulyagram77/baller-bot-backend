@@ -12,6 +12,7 @@ import { FeaturesService } from './features.service';
 import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
+  ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
   ApiParam,
@@ -61,6 +62,16 @@ export class FeaturesController {
     summary: 'Update a static feature by ID',
   })
   @ApiOkResponse({ type: FeatureEntity })
+  @ApiNotFoundResponse({
+    description: 'Feature not found',
+    schema: {
+      example: {
+        statusCode: 404,
+        message: 'Feature not found',
+        error: 'Not Found',
+      },
+    },
+  })
   @ApiBadRequestResponse({
     description: 'Validation failed',
     schema: {
@@ -88,6 +99,16 @@ export class FeaturesController {
     type: 'number',
   })
   @ApiOkResponse({ type: FeatureEntity })
+  @ApiNotFoundResponse({
+    description: 'Feature not found',
+    schema: {
+      example: {
+        statusCode: 404,
+        message: 'Feature not found',
+        error: 'Not Found',
+      },
+    },
+  })
   @ApiBadRequestResponse({
     description: 'Validation failed',
     schema: {
