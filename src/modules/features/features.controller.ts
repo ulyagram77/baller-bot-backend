@@ -12,7 +12,6 @@ import { FeaturesService } from './features.service';
 import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
-  ApiInternalServerErrorResponse,
   ApiOkResponse,
   ApiOperation,
   ApiParam,
@@ -44,16 +43,6 @@ export class FeaturesController {
       },
     },
   })
-  @ApiInternalServerErrorResponse({
-    description: 'Internal server error',
-    schema: {
-      example: {
-        statusCode: 500,
-        message: 'Could not add feature to the database',
-        error: 'Internal Server Error',
-      },
-    },
-  })
   async create(@Body() createFeatureDto: CreateFeatureDto) {
     return await this.featuresService.create(createFeatureDto);
   }
@@ -63,16 +52,6 @@ export class FeaturesController {
     summary: 'Get an array of all static features for the frontend application',
   })
   @ApiOkResponse({ type: FeatureEntity, isArray: true })
-  @ApiInternalServerErrorResponse({
-    description: 'Internal server error',
-    schema: {
-      example: {
-        statusCode: 500,
-        message: 'Could not fetch features',
-        error: 'Internal Server Error',
-      },
-    },
-  })
   async findAll() {
     return await this.featuresService.findAll();
   }
@@ -89,16 +68,6 @@ export class FeaturesController {
         statusCode: 400,
         message: 'validation details',
         error: 'Bad Request',
-      },
-    },
-  })
-  @ApiInternalServerErrorResponse({
-    description: 'Internal server error',
-    schema: {
-      example: {
-        statusCode: 500,
-        message: 'Could not update feature in the database',
-        error: 'Internal Server Error',
       },
     },
   })
@@ -119,13 +88,13 @@ export class FeaturesController {
     type: 'number',
   })
   @ApiOkResponse({ type: FeatureEntity })
-  @ApiInternalServerErrorResponse({
-    description: 'Internal server error',
+  @ApiBadRequestResponse({
+    description: 'Validation failed',
     schema: {
       example: {
-        statusCode: 500,
-        message: 'Could not remove feature from the database',
-        error: 'Internal Server Error',
+        statusCode: 400,
+        message: 'validation details',
+        error: 'Bad Request',
       },
     },
   })
