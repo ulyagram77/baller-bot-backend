@@ -34,11 +34,28 @@ Install dependencies
   yarn
 ```
 
+Create environment file
+
+```bash
+  cp .env.example .env
+```
+
+Fill in the environment variables in `.env` file (see [Environment Variables](#environment-variables) section)
+
+Generate Prisma client and apply database migrations
+
+```bash
+  yarn db:migrate
+```
+
 Start the development server
 
 ```bash
   yarn start:dev
 ```
+
+> [!NOTE]
+> On first run, make sure to execute `yarn db:migrate` to create the SQLite database and apply all migrations, as the database file is not exsisted before.
 
 ## Environment Variables
 
