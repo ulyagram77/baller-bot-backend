@@ -44,10 +44,11 @@ Start the development server
 
 To run this project, you will need to add the following environment variables to your .env file
 
-| Parameter      | Description                 |
-| :------------- | :-------------------------- |
-| `BOT_API_KEY`  | Your `telegram` bot API key |
-| `DATABASE_URL` | Your `sqlite` file location |
+| Parameter      | Description                   |
+| :------------- | :---------------------------- |
+| `PORT`         | Port on which server will run |
+| `BOT_API_KEY`  | Your `telegram` bot API key   |
+| `DATABASE_URL` | Your `sqlite` file location   |
 
 ## Other Commands
 
