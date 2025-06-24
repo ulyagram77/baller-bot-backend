@@ -1,13 +1,15 @@
 import { Module } from '@nestjs/common';
 import { TelegrafModule } from 'nestjs-telegraf';
-import { session } from 'telegraf';
 import { BotService } from './bot.service';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { botConfig } from 'src/config/bot.config';
 
 @Module({
   imports: [
-    TelegrafModule.forRoot({
-      token: process.env.BOT_API_KEY!,
-      middlewares: [session()],
+    TelegrafModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: botConfig,
+      inject: [ConfigService],
     }),
   ],
   providers: [BotService],

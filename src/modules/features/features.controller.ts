@@ -18,9 +18,9 @@ import {
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
-import { FeatureEntity } from './entities/features.entity';
 import { CreateFeatureDto } from './dto/create-feature.dto';
 import { UpdateFeatureDto } from './dto/update-feature.dto';
+import { FeatureDto } from './dto/feature.dto';
 
 @Controller('features')
 @ApiTags('Features')
@@ -32,7 +32,7 @@ export class FeaturesController {
     summary: 'Create a new static feature',
   })
   @ApiCreatedResponse({
-    type: FeatureEntity,
+    type: FeatureDto,
   })
   @ApiBadRequestResponse({
     description: 'Validation failed',
@@ -52,7 +52,7 @@ export class FeaturesController {
   @ApiOperation({
     summary: 'Get an array of all static features for the frontend application',
   })
-  @ApiOkResponse({ type: FeatureEntity, isArray: true })
+  @ApiOkResponse({ type: FeatureDto, isArray: true })
   async findAll() {
     return await this.featuresService.findAll();
   }
@@ -61,7 +61,7 @@ export class FeaturesController {
   @ApiOperation({
     summary: 'Update a static feature by ID',
   })
-  @ApiOkResponse({ type: FeatureEntity })
+  @ApiOkResponse({ type: FeatureDto })
   @ApiNotFoundResponse({
     description: 'Feature not found',
     schema: {
@@ -98,7 +98,7 @@ export class FeaturesController {
     description: 'Feature ID',
     type: 'number',
   })
-  @ApiOkResponse({ type: FeatureEntity })
+  @ApiOkResponse({ type: FeatureDto })
   @ApiNotFoundResponse({
     description: 'Feature not found',
     schema: {
