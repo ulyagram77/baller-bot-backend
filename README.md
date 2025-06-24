@@ -54,18 +54,33 @@ Start the development server
   yarn start:dev
 ```
 
+You can inspect documentation and database after via:
+
+- Swagger docs: [http://localhost:3001/api](http://localhost:3001/api)
+- Prisma studio: [http://localhost:5555](http://localhost:5555)
+
 > [!NOTE]
-> On first run, make sure to execute `yarn db:migrate` to create the SQLite database and apply all migrations, as the database file is not exsisted before.
+>
+> 1. On first run, make sure to execute `yarn db:migrate` to create the SQLite database and apply all migrations, as the database file is not exsisted before.
+> 2. To access prisma studio, you will need to run `yarn db:studio`, details in the [Other Commands](#other-commands) section.
 
 ## Environment Variables
 
 To run this project, you will need to add the following environment variables to your .env file
 
-| Parameter      | Description                   |
-| :------------- | :---------------------------- |
-| `PORT`         | Port on which server will run |
-| `BOT_API_KEY`  | Your `telegram` bot API key   |
-| `DATABASE_URL` | Your `sqlite` file location   |
+| Parameter               | Description                                  |
+| :---------------------- | :------------------------------------------- |
+| `NODE_ENV`              | Node environment (development, production)   |
+| `PORT`                  | Port on which server will run                |
+| `BOT_API_KEY`           | Your `telegram` bot API key                  |
+| `DATABASE_URL`          | Your `sqlite` file location                  |
+| `JWT_SECRET`            | Your `jwt` signature secret                  |
+| `JWT_ACCESS_TOKEN_TTL`  | Your `jwt` access token expiration time      |
+| `JWT_REFRESH_TOKEN_TTL` | Your `jwt` refresh token expiration time     |
+| `COOKIE_DOMAIN`         | Your `jwt` cookie domain (localhost for dev) |
+
+> [!IMPORTANT]
+> The `JWT_ACCESS_TOKEN_TTL` and `JWT_REFRESH_TOKEN_TTL` values expressed in seconds or a string describing a time span [vercel/ms](https://github.com/vercel/ms).
 
 ## Other Commands
 
