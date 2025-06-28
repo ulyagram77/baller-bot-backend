@@ -4,11 +4,19 @@
 
 ## Table of Contents
 
+- [Requirements](#requirements)
 - [Tech Stack](#tech-stack)
 - [Run Locally](#run-locally)
 - [Environment Variables](#environment-variables)
 - [Other Commands](#other-commands)
 - [Code Quality Tools](#code-quality-tools)
+
+## Requirements
+
+- Node.js
+- Configured `.env` file
+- Yarn (optional)
+- Sqlite database `<name>.db` file added to `data` folder (optional)
 
 ## Tech Stack
 
