@@ -12,10 +12,22 @@ model User {
   email String @unique
   password String
   name String
+  userStats UserStats?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@map("users")
+}
+
+model UserStats {
+  id Int @id @default(autoincrement())
+  userId String @unique
+  totalGamesPlayed Int @default(0)
+  bestShotStreak Int @default(0)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@map("user_stats")
 }
 
 model Feature {

@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { BotModule } from './modules/bot/bot.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { envValidationShema } from './config/core.config';
+import { StatsModule } from './modules/stats/stats.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { envValidationShema } from './config/core.config';
     FeaturesModule,
     BotModule,
     AuthModule,
+    StatsModule,
   ],
 })
 export class AppModule {}
