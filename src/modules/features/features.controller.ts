@@ -10,9 +10,7 @@ import {
 } from '@nestjs/common';
 import { FeaturesService } from './features.service';
 import {
-  ApiBadRequestResponse,
   ApiCreatedResponse,
-  ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
   ApiParam,
@@ -21,6 +19,10 @@ import {
 import { CreateFeatureDto } from './dto/create-feature.dto';
 import { UpdateFeatureDto } from './dto/update-feature.dto';
 import { FeatureDto } from './dto/feature.dto';
+import {
+  ApiBadRequestResponse,
+  ApiNotFoundResponse,
+} from 'src/common/decorators/api-error-response.decorator';
 
 @Controller('features')
 @ApiTags('Features')
@@ -34,16 +36,7 @@ export class FeaturesController {
   @ApiCreatedResponse({
     type: FeatureDto,
   })
-  @ApiBadRequestResponse({
-    description: 'Validation failed',
-    schema: {
-      example: {
-        statusCode: 400,
-        message: 'validation details',
-        error: 'Bad Request',
-      },
-    },
-  })
+  @ApiBadRequestResponse()
   async create(@Body() createFeatureDto: CreateFeatureDto) {
     return await this.featuresService.create(createFeatureDto);
   }
@@ -62,26 +55,8 @@ export class FeaturesController {
     summary: 'Update a static feature by ID',
   })
   @ApiOkResponse({ type: FeatureDto })
-  @ApiNotFoundResponse({
-    description: 'Feature not found',
-    schema: {
-      example: {
-        statusCode: 404,
-        message: 'Feature not found',
-        error: 'Not Found',
-      },
-    },
-  })
-  @ApiBadRequestResponse({
-    description: 'Validation failed',
-    schema: {
-      example: {
-        statusCode: 400,
-        message: 'validation details',
-        error: 'Bad Request',
-      },
-    },
-  })
+  @ApiNotFoundResponse()
+  @ApiBadRequestResponse()
   async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateFeatureDto: UpdateFeatureDto,
@@ -99,26 +74,8 @@ export class FeaturesController {
     type: 'number',
   })
   @ApiOkResponse({ type: FeatureDto })
-  @ApiNotFoundResponse({
-    description: 'Feature not found',
-    schema: {
-      example: {
-        statusCode: 404,
-        message: 'Feature not found',
-        error: 'Not Found',
-      },
-    },
-  })
-  @ApiBadRequestResponse({
-    description: 'Validation failed',
-    schema: {
-      example: {
-        statusCode: 400,
-        message: 'validation details',
-        error: 'Bad Request',
-      },
-    },
-  })
+  @ApiNotFoundResponse()
+  @ApiBadRequestResponse()
   async remove(@Param('id', ParseIntPipe) id: number) {
     return await this.featuresService.remove(id);
   }

@@ -12,16 +12,17 @@ import { StatsService } from './stats.service';
 import { CreateStatDto } from './dto/create-stat.dto';
 import { UpdateStatDto } from './dto/update-stat.dto';
 import {
-  ApiBadRequestResponse,
-  ApiBearerAuth,
   ApiCreatedResponse,
-  ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
 import { StatDto } from './dto/stat.dto';
-import { Authorization } from 'src/common/decorators/authorization.decorator';
+import { AuthorizationByJwt } from 'src/common/decorators/authorization.decorator';
+import {
+  ApiBadRequestResponse,
+  ApiNotFoundResponse,
+} from 'src/common/decorators/api-error-response.decorator';
 
 @Controller('user-stats')
 @ApiTags('User Statistics')
@@ -37,26 +38,8 @@ export class StatsController {
     type: StatDto,
     description: 'User statistics created/updated successfully',
   })
-  @ApiBadRequestResponse({
-    description: 'Validation failed',
-    schema: {
-      example: {
-        statusCode: 400,
-        message: 'validation details',
-        error: 'Bad Request',
-      },
-    },
-  })
-  @ApiNotFoundResponse({
-    description: 'User not found',
-    schema: {
-      example: {
-        statusCode: 404,
-        message: 'User not found',
-        error: 'Not Found',
-      },
-    },
-  })
+  @ApiBadRequestResponse()
+  @ApiNotFoundResponse()
   async create(@Body() createStatDto: CreateStatDto) {
     return await this.statsService.create(createStatDto);
   }
@@ -83,28 +66,9 @@ export class StatsController {
     type: StatDto,
     description: 'User statistics found',
   })
-  @ApiNotFoundResponse({
-    description: 'User statistics not found',
-    schema: {
-      example: {
-        statusCode: 404,
-        message: 'User statistics not found',
-        error: 'Not Found',
-      },
-    },
-  })
-  @ApiBadRequestResponse({
-    description: 'Invalid ID format',
-    schema: {
-      example: {
-        statusCode: 400,
-        message: 'Validation failed (numeric string is expected)',
-        error: 'Bad Request',
-      },
-    },
-  })
-  @Authorization()
-  @ApiBearerAuth('access-token')
+  @ApiNotFoundResponse()
+  @ApiBadRequestResponse()
+  @AuthorizationByJwt()
   async findOne(@Param('id', ParseIntPipe) id: number) {
     return await this.statsService.findOne(id);
   }
@@ -118,26 +82,8 @@ export class StatsController {
     type: StatDto,
     description: 'User statistics updated successfully',
   })
-  @ApiNotFoundResponse({
-    description: 'User statistics not found',
-    schema: {
-      example: {
-        statusCode: 404,
-        message: 'User statistics not found',
-        error: 'Not Found',
-      },
-    },
-  })
-  @ApiBadRequestResponse({
-    description: 'Validation failed',
-    schema: {
-      example: {
-        statusCode: 400,
-        message: 'validation details',
-        error: 'Bad Request',
-      },
-    },
-  })
+  @ApiNotFoundResponse()
+  @ApiBadRequestResponse()
   async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateStatDto: UpdateStatDto,
@@ -154,26 +100,8 @@ export class StatsController {
     type: StatDto,
     description: 'User statistics deleted successfully',
   })
-  @ApiNotFoundResponse({
-    description: 'User statistics not found',
-    schema: {
-      example: {
-        statusCode: 404,
-        message: 'User statistics not found',
-        error: 'Not Found',
-      },
-    },
-  })
-  @ApiBadRequestResponse({
-    description: 'Invalid ID format',
-    schema: {
-      example: {
-        statusCode: 400,
-        message: 'Validation failed (numeric string is expected)',
-        error: 'Bad Request',
-      },
-    },
-  })
+  @ApiNotFoundResponse()
+  @ApiBadRequestResponse()
   async remove(@Param('id', ParseIntPipe) id: number) {
     return await this.statsService.remove(id);
   }
